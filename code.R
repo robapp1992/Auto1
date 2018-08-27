@@ -42,15 +42,10 @@ for(mtry in 1 : npar)
 matplot(1:mtry ,rf.err, pch=19 , col=c("red"),type="b",ylab="Mean Squared Error",xlab="Number of Predictors Considered at each Split")
 
 #model with 9 predictor
-rf1=randomForest(price ~ . , data = df1 , subset = train, mtry=9, ntree=2000, importance =TRUE)
+rf1=randomForest(price ~ . , data = df1 , subset = train, mtry= match(min(rf.err),rf.err), ntree=2000, importance =TRUE)
 
+plot(rf1)
+rf1$importance
 #Test error
 pred<-predict(rf1,test) 
 print(paste0("Random forest prediction error rate= ", mean(abs(test$price-pred)/pred)))
-
-
-
-
-
-
-rf=rfImpute(price ~ .,data=df1, iter=6)
