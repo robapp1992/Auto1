@@ -44,8 +44,8 @@ matplot(1:mtry ,rf.err, pch=19 , col=c("red"),type="b",ylab="Mean Squared Error"
 #model with 9 predictor
 rf1=randomForest(price ~ . , data = df1 , subset = train, mtry= match(min(rf.err),rf.err), ntree=2000, importance =TRUE)
 
-plot(rf1)
 rf1$importance
+plot(rf1)
 #Test error
 pred<-predict(rf1,test) 
 print(paste0("Random forest prediction error rate= ", mean(abs(test$price-pred)/pred)))
